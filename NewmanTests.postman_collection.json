@@ -1,0 +1,202 @@
+{
+	"variables": [],
+	"info": {
+		"name": "NewmanTests",
+		"_postman_id": "4724da97-2615-9ffa-a0b8-a5c12986e513",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET create page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"if (responseCode.code!== 200) {\r",
+							"    console.log(responseCode.code);\r",
+							"}\r",
+							"\r",
+							"var $ = cheerio.load(responseBody);\r",
+							"var tokenInput = $(\"#content > div > form > input[name=\\\"__RequestVerificationToken\\\"]\");\r",
+							"var token = tokenInput.attr('value');\r",
+							"postman.setGlobalVariable(\"RequestVerificationToken\", token);\r",
+							"\r",
+							"//RequestVerificationTokenCookie\r",
+							"var header = responseHeaders['Set-Cookie'];\r",
+							"var cookie = header.substring(0, header.indexOf(\";\"));\r",
+							"postman.setGlobalVariable(\"RequestVerificationTokenCookie\", cookie);\r",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://localhost/Laser.Orchard/NoLaser/Admin/Contents/Create/Page",
+				"method": "GET",
+				"header": [
+					{
+						"key": "cookie",
+						"value": ".ASPXAUTH={{aspAuthCookie}};",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST create page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"if (responseCode.code!== 200) {",
+							"    console.log(responseCode.code);",
+							"}",
+							"",
+							"//tests[\"has been created\"]",
+							"//console.log(responseBody);",
+							"var $ = cheerio.load(responseBody);",
+							"var messageDiv = $(\"#main > #messages > div > div.message-Information\");",
+							"var message = messageDiv.text();",
+							"//console.log(messageDiv.text());",
+							"var testResult = message.indexOf(\"has been created.\") != -1;",
+							"tests[\"Creation OK\"] = testResult;",
+							"if (!testResult) {",
+							"    console.log(responseBody);",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://localhost/Laser.Orchard/NoLaser/Admin/Contents/Create/Page",
+				"method": "POST",
+				"header": [
+					{
+						"key": "cookie",
+						"value": ".ASPXAUTH={{aspAuthCookie}};",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Title.Title",
+							"value": "MyTitle",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "AutoroutePart.CurrentUrl",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "AutoroutePart.PromoteToHomePage",
+							"value": "false",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "Tags.Tags",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "MenuPart.OnMenu",
+							"value": "false",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "MenuPart.CurrentMenuId",
+							"value": "8",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "MenuPart.MenuText",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "Editor.Date",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "Editor.Time",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "CommonPart.ContainerId",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "OwnerEditor.Owner",
+							"value": "admin",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "submit.Publish",
+							"value": "submit.Publish",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "PublishLater.Editor.ShowDate",
+							"value": "True",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "PublishLater.Editor.ShowTime",
+							"value": "True",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "PublishLater.Editor.Date",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "PublishLater.Editor.Time",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "__RequestVerificationToken",
+							"value": "{{RequestVerificationToken}}",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
