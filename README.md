@@ -5,8 +5,8 @@ This script is supposed to be run using Node.js. Setup instructions are availabl
 
 The script uses two modules:
 
-*[async.js](https://www.npmjs.com/package/async)
-*[newman](https://github.com/postmanlabs/newman)
+ * [async.js](https://www.npmjs.com/package/async)
+ * [newman](https://github.com/postmanlabs/newman)
 
 The easiest way to get the script running is to install both packages locally by running from command line:
 ```
