@@ -32,16 +32,19 @@ var path = require('path'),
 	recursiveCallBack = function (err, results) {
 		console.info("Done test for " + collections.length + " concurrent collections.");
 		err && console.error(err);
-		var fail;
+		var fail = false;
 		if (results) {
 			results.forEach(function (result) {
-				fail = result.run.failures;
-				console.info(fail.length ? `${result.collection.name} failed.` :
+				var failures = result.run.failures;
+				if (failures.length) {
+					fail = true;
+				}
+				console.info(failures.length ? `${result.collection.name} failed.` :
 							`${result.collection.name} ran successfully.`);
 			});
 		} 
 		//keep increasing the number of concurrent calls until something fails
-		if ((fail && fail.length) || err) {
+		if (fail || err) {
 			console.error("Error when attempting " + collections.length + " calls.");
 			err && console.error(err);
 		} else {

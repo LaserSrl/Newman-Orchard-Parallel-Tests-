@@ -23,12 +23,17 @@
 							"var $ = cheerio.load(responseBody);\r",
 							"var tokenInput = $(\"#content > div > form > input[name=\\\"__RequestVerificationToken\\\"]\");\r",
 							"var token = tokenInput.attr('value');\r",
-							"postman.setGlobalVariable(\"RequestVerificationToken\", token);\r",
+							"postman.setEnvironmentVariable(\"RequestVerificationToken\", token);\r",
 							"\r",
 							"//RequestVerificationTokenCookie\r",
 							"var header = responseHeaders['Set-Cookie'];\r",
 							"var cookie = header.substring(0, header.indexOf(\";\"));\r",
-							"postman.setGlobalVariable(\"RequestVerificationTokenCookie\", cookie);\r",
+							"postman.setEnvironmentVariable(\"RequestVerificationTokenCookie\", cookie);\r",
+							"\r",
+							"//Layout session\r",
+							"var sKeyInput = $(\"#LayoutPart_LayoutEditor_SessionKey\");\r",
+							"var sKey = tokenInput.attr('value');\r",
+							"postman.setEnvironmentVariable(\"LayoutSessionKey\", sKey);\r",
 							""
 						]
 					}
@@ -72,6 +77,11 @@
 							"tests[\"Creation OK\"] = testResult;",
 							"if (!testResult) {",
 							"    console.log(responseBody);",
+							"}",
+							"",
+							"if (responseCode.code === 500) {",
+							"    //Internal server error, likely db related",
+							"    ",
 							"}"
 						]
 					}
@@ -189,6 +199,30 @@
 						{
 							"key": "__RequestVerificationToken",
 							"value": "{{RequestVerificationToken}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "LayoutPart.LayoutEditor.SessionKey",
+							"value": "{{LayoutSessionKey}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "LayoutPart.LayoutEditor.Data",
+							"value": "{\n\t\"type\": \"Canvas\",\n\t\"data\": \"\",\n\t\"htmlId\": \"\",\n\t\"htmlClass\": \"\",\n\t\"htmlStyle\": \"\",\n\t\"isTemplated\": false,\n\t\"rule\": \"\",\n\t\"children\": [\n\t\t{\n\t\t\t\"type\": \"Grid\",\n\t\t\t\"data\": \"\",\n\t\t\t\"htmlId\": \"\",\n\t\t\t\"htmlClass\": \"\",\n\t\t\t\"htmlStyle\": \"\",\n\t\t\t\"isTemplated\": false,\n\t\t\t\"rule\": \"\",\n\t\t\t\"children\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"Row\",\n\t\t\t\t\t\"data\": \"\",\n\t\t\t\t\t\"htmlId\": \"\",\n\t\t\t\t\t\"htmlClass\": \"\",\n\t\t\t\t\t\"htmlStyle\": \"\",\n\t\t\t\t\t\"isTemplated\": false,\n\t\t\t\t\t\"rule\": \"\",\n\t\t\t\t\t\"children\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"type\": \"Column\",\n\t\t\t\t\t\t\t\"data\": \"\",\n\t\t\t\t\t\t\t\"htmlId\": \"\",\n\t\t\t\t\t\t\t\"htmlClass\": \"\",\n\t\t\t\t\t\t\t\"htmlStyle\": \"\",\n\t\t\t\t\t\t\t\"isTemplated\": false,\n\t\t\t\t\t\t\t\"rule\": \"\",\n\t\t\t\t\t\t\t\"width\": 12,\n\t\t\t\t\t\t\t\"offset\": 0,\n\t\t\t\t\t\t\t\"collapsible\": \"\",\n\t\t\t\t\t\t\t\"children\": []\n\t\t\t\t\t\t}\n\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}\n",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "LayoutPart.LayoutEditor.RecycleBin",
+							"value": "{\n\t\"type\": \"RecycleBin\",\n\t\"children\": []\n}\n",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "Localization.SelectedCulture",
+							"value": "aa-DJ",
 							"type": "text",
 							"enabled": true
 						}
