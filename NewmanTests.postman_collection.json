@@ -75,14 +75,18 @@
 							"//console.log(messageDiv.text());",
 							"var testResult = message.indexOf(\"has been created.\") != -1;",
 							"tests[\"Creation OK\"] = testResult;",
+							"testResult = testResult & responseCode.code === 200;",
 							"if (!testResult) {",
 							"    console.log(responseBody);",
+							"} else {",
+							"    //postman.setGlobalVariable(\"pageTitle\", postman.getGlobalVariable(\"pageTitle\") + \"a\");",
 							"}",
 							"",
 							"if (responseCode.code === 500) {",
 							"    //Internal server error, likely db related",
 							"    ",
-							"}"
+							"}",
+							""
 						]
 					}
 				}
@@ -102,7 +106,7 @@
 					"formdata": [
 						{
 							"key": "Title.Title",
-							"value": "MyTitle",
+							"value": "{{pageTitle}}",
 							"type": "text",
 							"enabled": true
 						},
