@@ -34,15 +34,23 @@ var path = require('path'),
 		}
 	},
 
+	timeoutValue = 5000, // ms of timeout between calls
 	//this is the collection runner function
 	parallelCollectionRun = function(done) {
 		newman.run(options, done); //done will be the callback function
-	},
+	}, 
+	delayedRunner = function(done) {
+		setTimeout(function() {
+				newman.run(options, done);
+			},
+			timeoutValue
+		)
+	}
 	//array of the collections to run
-	collections = [parallelCollectionRun], //initially only 1 element
+	collections = [parallelCollectionRun, delayedRunner],
 	//this will be called after all the concurrent calls are finished
 	recursiveCallBack = function (err, results) {
-		console.info("Done test for " + collections.length + " concurrent collections.");
+		console.info("Done test for " + timeoutValue + " ms delay.");
 		err && console.error(err);
 		var fail = false;
 		if (results) {
@@ -60,8 +68,9 @@ var path = require('path'),
 			console.error("Error when attempting " + collections.length + " calls.");
 			err && console.error(err);
 		} else {
-			collections.push(parallelCollectionRun);
-			console.info("Launching test for " + collections.length + " concurrent collections.");
+			//collections.push(parallelCollectionRun);
+			timeoutValue = timeoutValue / 2;
+			console.info("Launching test for " + timeoutValue + " ms delay.");
 			async.parallel(collections, recursiveCallBack);
 		}
 	};

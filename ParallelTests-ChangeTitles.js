@@ -15,13 +15,19 @@ var path = require('path'),
 				"values":[
 					{
 						"key": "aspAuthCookie", //The authentication cookie is set here for all calls
-						"value": "1498009E9E4CADD3E0DBC401B5E7143CB91EAF319FD7ECD6D065646B40A7E9090D4B9AD092D43CAE2EFD4857653F343AD8E4C56391D07DE0407E99CDFD2DDF6D2831251058E76FC70F1B6320DB025BFB57B9BDCFC19FE36841F47A98314CA33C85C66BA738CD5A5E02D30BFE2E975688E5B616C18A3923C9B9A0038ABEE3AB10",
+						"value": "1AE5D6B516D083FF42C249A7C0194E48F66332BB03FAFF4BEE40370937174130F23B3E7DC13A6041ACB3468982C6917C4A5984138D5BCACEAA36566ABC70DBDFB27E033DAFB4ECB8F488DB87F69CEEB55B07B0BBE0A3080874CB42410C82224272F9D8EFE8C92C260F82E4B395B0E24326A1BFC58D5B526F150623C3D66E3305",
 						"type": "text",
 						"enabled": true
 					},
 					{
 						"key": "pageTitle",
 						"value": newTitle,
+						"type": "text",
+						"enabled": true
+					},
+					{
+						"key": "baseURL",
+						"value": "https://localhost/OrchardCMS/DevNoLaser",
 						"type": "text",
 						"enabled": true
 					}
@@ -37,7 +43,7 @@ var path = require('path'),
 		}
 	},
 	//array of the collections to run
-	collections = [parallelCollectionRun("title0")], //initially only 1 element
+	collections = [parallelCollectionRun("waka0"), parallelCollectionRun("waka1")], //initially only 1 element
 	//this will be called after all the concurrent calls are finished
 	recursiveCallBack = function (err, results) {
 		console.info("Done test for " + collections.length + " concurrent collections.");
@@ -58,7 +64,7 @@ var path = require('path'),
 			console.error("Error when attempting " + collections.length + " calls.");
 			err && console.error(err);
 		} else {
-			collections.push(parallelCollectionRun("title" + collections.length));
+			collections.push(parallelCollectionRun("waka" + collections.length));
 			console.info("Launching test for " + collections.length + " concurrent collections.");
 			async.parallel(collections, recursiveCallBack);
 		}

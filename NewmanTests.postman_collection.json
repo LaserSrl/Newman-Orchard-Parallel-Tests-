@@ -40,7 +40,7 @@
 				}
 			],
 			"request": {
-				"url": "https://localhost/Laser.Orchard/NoLaser/Admin/Contents/Create/Page",
+				"url": "{{baseURL}}/Admin/Contents/Create/Page",
 				"method": "GET",
 				"header": [
 					{
@@ -92,7 +92,7 @@
 				}
 			],
 			"request": {
-				"url": "https://localhost/Laser.Orchard/NoLaser/Admin/Contents/Create/Page",
+				"url": "{{baseURL}}/Admin/Contents/Create/Page",
 				"method": "POST",
 				"header": [
 					{
@@ -124,7 +124,7 @@
 						},
 						{
 							"key": "Tags.Tags",
-							"value": "",
+							"value": "CTAG",
 							"type": "text",
 							"enabled": true
 						},
