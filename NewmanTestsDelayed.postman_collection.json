@@ -34,7 +34,12 @@
 							"var sKeyInput = $(\"#LayoutPart_LayoutEditor_SessionKey\");\r",
 							"var sKey = tokenInput.attr('value');\r",
 							"postman.setEnvironmentVariable(\"LayoutSessionKey\", sKey);\r",
-							""
+							"// set delay before next request\r",
+							"//console.log(pm.globals.get(\"callDelay\"));\r",
+							"var delay = pm.globals.get(\"callDelay\");\r",
+							"if (delay > 0) {\r",
+							"setTimeout(function(){}, delay)\r",
+							"}\r"
 						]
 					}
 				}

@@ -39,7 +39,7 @@ var path = require('path'),
 		newman.run(options, done); //done will be the callback function
 	},
 	//array of the collections to run
-	collections = [parallelCollectionRun], //initially only 1 element
+	collections = [parallelCollectionRun, parallelCollectionRun], //initially 2 elements
 	//this will be called after all the concurrent calls are finished
 	recursiveCallBack = function (err, results) {
 		console.info("Done test for " + collections.length + " concurrent collections.");
